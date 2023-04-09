@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Weather Station</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="index.css">
+    <script src="index.js"></script>
+  </head>
+  <body>
+    <header class="header" id="myHeader">
+      <img src="img/LogoUDEPazul.png" alt="logo">
+      <a href="iniciarsesion.html">Iniciar Sesión</a>
+    </header>
+
+    <div id="img_principal">
+      <img src="img/Edificio E.jpg" alt="edificio E">
+      <h1>Weather Station</h1>
+    </div>
+
+    <div class="rectangulo">
+      <p><a href="graficas.html">GRÁFICAS</a></p>
+      <p><a href="#">HISTORIAL</a></p>
+      <p><a href="#">MAPA</a></p>
+    </div>
+
+    <div class="clima_diario">
+      <div class="columna">
+        <p>El tiempo ahora en Piura, Perú</p>
+        <!--<p>Hay que jalar datos</p>-->
+        <h4>Sensación</h4>
+      </div>
+      <div class="columna">
+        <h4>Lluvia</h4>
+        <h4>Dirección del viento</h4>
+        <h4>Velocidad del viento</h4>
+        <h4>Velocidad de ráfaga</h4>                
+      </div>
+      <div class="columna">
+        <h4>Humedad</h4>
+        <h4>Punto de rocío</h4>
+        <h4>Radiación</h4>
+        <h4>Batería</h4>
+      </div>
+    </div>
+
+    <script>
+      window.onscroll = function() {myFunction()};
+
+      var header = document.getElementById("myHeader");
+      var sticky = header.offsetTop;
+
+      function myFunction() {
+        if (window.pageYOffset > sticky) {
+          header.classList.add("sticky");
+        } else {
+          header.classList.remove("sticky");
+        }
+      }
+    </script>
+  </body>
+</html>

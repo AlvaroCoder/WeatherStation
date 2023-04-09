@@ -1,0 +1,96 @@
+*{
+    font-family: 'Montserrat', sans-serif;
+}
+
+header {
+    background-color: white;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+  }
+header img{
+    width: 200px;
+    float: left;
+}
+
+header a {
+    text-decoration: none;
+    color: white;
+    background-color: #00467a;
+    border-radius: 5px;
+    padding: 5px 15px;
+    border-radius: 5px;
+  }
+  
+
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%
+}
+
+.sticky + .content {
+    padding-top: 102px;
+}
+
+#img_principal img {
+    width: 100%;
+}
+
+.rectangulo {
+    width: 100%;
+    height: 76px;
+    background: #E9EAEE;
+    margin: 10px 0px;
+}
+
+.rectangulo p{
+    font-style: normal;
+    display: inline-flex;
+    text-align: justify;
+    padding: 0px 12%;
+
+}
+
+.rectangulo p a{
+    text-decoration: none;
+    color: #005cb9;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+}
+
+.menu{
+    background-color: #00467a;   
+    width: 15%;
+    padding: 5px 0px;
+    margin: 20px 25px;
+}
+
+.menu ul li{
+    list-style: none;
+    padding: 5px 0px;
+}
+
+.menu a{
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+}
+
+
+@media screen and (max-width: 600px) {
+    .rectangulo p{
+        padding: 0px 4%;
+    }
+
+    .rectangulo p a{
+        font-size: 18px;
+    }
+
+  }

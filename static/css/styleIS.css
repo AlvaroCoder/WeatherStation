@@ -1,0 +1,140 @@
+/* FONDO */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background: url(./img/Edificio\ E\ IS.jpg) no-repeat center center fixed;
+    background-size: cover;
+    height: 100vh;
+    }
+    
+    /* CUADRO BLANCO DEL FORMULARIO */
+    .formulario {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 400px;
+      background: rgba(255, 255, 255, 0.99);
+      border-radius: 10px;
+      padding: 30px;
+      /* Agrega un padding para que haya suficiente espacio en el fondo blanco */
+      padding-bottom: 70px;
+    }
+    
+    .formulario img {
+    margin: auto;
+    display: block;
+    width: 120px;
+    margin-bottom: 20px;
+    }
+    
+    /* INICIO DE SESIÓN */
+    .formulario h1 {
+    text-align: center;
+    border-bottom: 1px solid #004077;
+    color: #004077;
+    margin-bottom: 30px;
+    }
+    
+    .formulario form {
+    width: 100%;
+    padding: 0 40px;
+    box-sizing: border-box;
+    }
+    
+    form .username{
+      position: relative;
+      border-bottom: 2px solid #004077;
+      margin: 30px 0;}
+    
+    .formulario .username input {
+      width: 100%;
+      padding: 0 5px;
+      height: 40px;
+      font-size: 16px;
+      border: none;
+      background: none;
+      outline: none;
+      }
+    
+    .formulario .username input:focus {
+    border-color: #0085ca;
+    }
+    
+    .formulario .username label {
+      position: absolute;
+      top: 50%;
+      left: 5px;
+      color: #adadad;
+      transform:translateY(-50%);
+      font-size: 16px;
+      pointer-events: none;
+      transition: .5s;
+      }
+    
+    .formulario .username input:focus ~ label,
+    .formulario .username input:valid ~ label {
+    top: -5px;
+    font-size: 16px;
+    color: #004077;
+
+    }
+    
+    .formulario .username span::before {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #004077;
+    transition: all 0.3s ease;
+    }
+    
+    .formulario .username input:focus ~ span::before {
+    height: 4px;
+    }
+    
+    .formulario .recordar {
+    margin: -10px 0 20px 10px;
+    color: #004077;
+    cursor: pointer;
+    font-size: 14px;
+    }
+    .recordar:hover{
+      text-decoration: underline;
+    }
+    .formulario input[type="submit"] {
+    width: 100%;
+    height: 50px;
+    border: none;
+    background: #004077;
+    border-radius: 40px;
+    font-size: 18px;
+    color: white;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+    
+    .formulario input[type="submit"]:hover {
+    background-color: #0085ca;
+    }
+    
+    .formulario .registrarse {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 16px;  
+    color: #004077;
+    }
+    
+    .formulario .registrarse a {
+    color: #004077;
+    text-decoration: none;
+    }
+    
+    .formulario .registrarse a:hover {
+    text-decoration: underline;
+    }
