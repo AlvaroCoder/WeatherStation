@@ -6,24 +6,24 @@
     <title>Weather Station</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="index.css">
+    <link href="{{ url_for('static', path='/css/index.css') }}" rel="stylesheet" >
     <script src="index.js"></script>
   </head>
   <body>
     <header class="header" id="myHeader">
-      <img src="img/LogoUDEPazul.png" alt="logo">
+      <img src="{{ url_for('static', path='img/LogoUDEPazul.png') }}" alt="logo">
       <a href="iniciarsesion.html">Iniciar Sesión</a>
     </header>
 
     <div id="img_principal">
-      <img src="img/Edificio E.jpg" alt="edificio E">
+      <img src="{{ url_for('static', path='img/Edificio E.jpg') }}" alt="edificio E">
       <h1>Weather Station</h1>
     </div>
 
     <div class="rectangulo">
-      <p><a href="graficas.html">GRÁFICAS</a></p>
+      <p><a href="graficas">GRÁFICAS</a></p>
       <p><a href="#">HISTORIAL</a></p>
-      <p><a href="#">MAPA</a></p>
+      <p><a href="map">MAPA</a></p>
     </div>
 
     <div class="clima_diario">
@@ -45,7 +45,15 @@
         <h4>Batería</h4>
       </div>
     </div>
-
+    <div class="contenedor-mapa" style="width:100%; padding: 2rem; display: flex; justify-content: center;">
+      <div style="width: 70%; border: 1px white solid; box-shadow: 4px 6px 5px 0px rgba(0,0,0,0.48);
+      -webkit-box-shadow: 4px 6px 5px 0px rgba(0,0,0,0.48);
+      -moz-box-shadow: 4px 6px 5px 0px rgba(0,0,0,0.48);">
+        <iframe width="100%" height="400" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=universidad%20de%20Piura+(Universidad%20de%20Piura)&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=B&amp;output=embed">
+          <a href="https://www.maps.ie/distance-area-calculator.html">measure acres/hectares on map</a>
+        </iframe>
+      </div>
+    </div>
     <script>
       window.onscroll = function() {myFunction()};
 
@@ -60,5 +68,6 @@
         }
       }
     </script>
+    
   </body>
 </html>
