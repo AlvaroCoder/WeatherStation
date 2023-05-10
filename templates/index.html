@@ -6,27 +6,25 @@
     <title>Weather Station</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="index.css">
-    <script src="index.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/index.v1.css') }}">
+    <script src="{{ url_for('static',path='js/index.v1.js') }}"></script>
   </head>
   <body>
     <header class="header" id="myHeader">
-      <img src="img/LogoUDEPazul.png" alt="logo">
-      <a href="iniciarsesion.html">Iniciar Sesión</a>
+      <img src="{{url_for('static',path='img/LogoUDEPazul.png')}}" alt="logo">
+      <a href="login">Iniciar Sesión</a>
     </header>
 
     <div id="img_principal">
-      <img src="img/Edificio E.jpg" alt="edificio E">
+      <img src="{{url_for('static',path='img/Edificio E.jpg')}}" alt="edificio E">
       <h1>Weather Station</h1>
     </div>
 
     <div class="rectangulo">
-      <p><a href="graficas.html">GRÁFICAS</a></p>
+      <p><a href="graficas">GRÁFICAS</a></p>
       <p><a href="#">HISTORIAL</a></p>
       <p><a href="#">MAPA</a></p>
     </div>
-
-    <div>{{a}}</div>
 
     <div class="clima_diario">
       <div class="columna">

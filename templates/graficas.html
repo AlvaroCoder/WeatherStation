@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
 <html>
     <head>
         <meta charset="utf-8">
@@ -10,21 +6,21 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="graficas.css">
-        <script src="graficas.js"></script>
+        <link rel="stylesheet" href="{{url_for('static',path='css/graficas.v1.css')}}">
+        <script src="{{url_for('static',path='js/graficas.v1.js')}}"></script>
     </head>
     <body>
         <header  class="header" id="myHeader">
-            <img src="img/LogoUDEPazul.png" alt="logo">
+            <img src="{{url_for('static',path='img/LogoUDEPazul.png')}}" alt="logo">
             <a href="" >Iniciar Sesión</a>
         </header>
 
         <div id="img_principal">
-            <img src="img/fondo 1.jpg" alt="edificio de gobierno">
+            <img src="{{url_for('static',path='img/fondo 1.jpg')}}" alt="edificio de gobierno">
         </div>
 
         <div class="rectangulo">
-            <p><a href="graficas.html">GRÁFICAS</a></p>
+            <p><a href="#">GRÁFICAS</a></p>
             <p><a href="#">HISTORIAL</a></p>
             <p><a href="#">MAPA</a></p>
         </div>
@@ -42,23 +38,23 @@
         <div class="tablas">
             <div id="temp">
                 <h3>Temperatura en el distrito de Piura</h3>
-                <img src="img/1.jpg" alt="ej1">
+                <img src="{{url_for('static',path='img/1.jpg')}}" alt="ej1">
             </div>
             <div id="hum">
                 <h3>Temperatura en el distrito de Piura</h3>
-                <img src="img/2.jpg"ej1">
+                <img src="{{url_for('static',path='img/2.jpg')}}"ej1">
             </div>
             <div id="lluvia">
                 <h3>Temperatura en el distrito de Piura</h3>
-                <img src="img/3.jpg" alt="ej1">
+                <img src="{{url_for('static',path='img/3.jpg')}}" alt="ej1">
             </div>
             <div id="uv">
                 <h3>Temperatura en el distrito de Piura</h3>
-                <img src="img/1.jpg" alt="ej1">
+                <img src="{{url_for('static',path='img/1.jpg')}}" alt="ej1">
             </div>
             <div id="viento">
                 <h3>Temperatura en el distrito de Piura</h3>
-                <img src="img/2.jpg" alt="ej1">
+                <img src="{{url_for('static',path='img/2.jpg')}}" alt="ej1">
             </div>      
         </div>
 

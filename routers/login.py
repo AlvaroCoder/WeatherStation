@@ -1,5 +1,11 @@
 from fastapi import APIRouter,status,Request,Depends,HTTPException
 from fastapi.security import OAuth2PasswordBearer,OAuth2PasswordRequestForm
+from fastapi.templating import Jinja2Templates
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
+
+
+
 from datetime import datetime, timedelta
 
 
@@ -64,9 +70,13 @@ def create_access_token(data:dict,expires_delta:timedelta|None=None):
     return encoded_jwt 
 
 
-@router.get("/")
-async def root():
-    return {"message":"Login page"}
+template=Jinja2Templates("templates")
+router.mount("/templates",StaticFiles(directory="static"),name="static")
+
+@router.get("/",response_class=HTMLResponse)
+async def root(request:Request):
+    response={'request':request}
+    return template.TemplateResponse("iniciarsesion.html",response)
 
 @router.post("/login")
 async def login_for_access_token(form:OAuth2PasswordRequestForm=Depends()):

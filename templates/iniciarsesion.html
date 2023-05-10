@@ -5,13 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar sesión</title>
-    <link rel="stylesheet" href="static\css\styleIS.css">
+    <link rel="stylesheet" href="{{url_for('static',path='css/styleIS.v1.css')}}">
 </head>
 <body>
     <div class="formulario"> 
-        <img src="img/Logo_UDEP - Azul.png" alt="Escudo UDEP">
+        <img src="{{url_for('static',path='img/Logo_UDEP_Azul.png')}}" alt="Escudo UDEP">
         <h1>Inicio de sesión</h1>
-        <form method="post">
+        <form method="post" action="/login/login">
             <div class="username">
                 <input type="text" id="username" name="username" required>
                 <label for="username">Usuario</label>

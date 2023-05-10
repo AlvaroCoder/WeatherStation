@@ -1,22 +1,20 @@
-from fastapi import FastAPI, APIRouter,status
-from routers import login
+from fastapi import FastAPI,status, Request
+from fastapi.templating import Jinja2Templates
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
+
+from routers import login,grafics
 
 app=FastAPI()
 
 #routers
 app.include_router(login.router)
+app.include_router(grafics.router)
+template=Jinja2Templates("templates")
+app.mount("/templates",StaticFiles(directory="static"),name="static")
 
-router=APIRouter(prefix="/home",
-                tags=["Home page"],
-                responses={status.HTTP_404_NOT_FOUND:{"message":"Page not found"}})
-
-@app.get("/")
-async def root():
-    return {"message":"Welcome"}
-
-
-""" @app.get("/login")
-async def login(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request}) 
-"""
+@app.get("/",response_class=HTMLResponse)
+async def root(request:Request):
+    response={"request":request}
+    return template.TemplateResponse("index.html",response)
 
