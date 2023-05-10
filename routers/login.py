@@ -61,7 +61,7 @@ def create_access_token(data:dict,expires_delta:timedelta|None=None):
         expire=datetime.utcnow()+timedelta(15) #luego se modifica
     to_encode.update({'exp':expire})
     encoded_jwt=jwt.encode(to_encode,SECRET_KEY,algorithm=ALGORITHM)
-    return encoded_jwt
+    return encoded_jwt 
 
 
 @router.get("/")
@@ -82,6 +82,7 @@ async def login_for_access_token(form:OAuth2PasswordRequestForm=Depends()):
     }
     access_token=create_access_token(data,access_token_expires)
     return {'access_token':access_token,'token_type':'bearer'}
+    #return template, a=10
 
 
 #a la ruta se le debe enviar el token
@@ -99,3 +100,10 @@ async def futuro(token=Depends(oauth2_scheme)):
     except JWTError:
         raise credentials_exception
     return {'message':'Acceso concedido'}
+
+
+#JWT -info-codificacion-firma
+
+# credenciales de usuario: Autentificar y autorizar
+
+#token
