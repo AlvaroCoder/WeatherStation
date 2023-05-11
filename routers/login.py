@@ -1,5 +1,11 @@
 from fastapi import APIRouter,status,Request,Depends,HTTPException
 from fastapi.security import OAuth2PasswordBearer,OAuth2PasswordRequestForm
+from fastapi.templating import Jinja2Templates
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
+
+
+
 from datetime import datetime, timedelta
 
 
@@ -61,12 +67,16 @@ def create_access_token(data:dict,expires_delta:timedelta|None=None):
         expire=datetime.utcnow()+timedelta(15) #luego se modifica
     to_encode.update({'exp':expire})
     encoded_jwt=jwt.encode(to_encode,SECRET_KEY,algorithm=ALGORITHM)
-    return encoded_jwt
+    return encoded_jwt 
 
 
-@router.get("/")
-async def root():
-    return {"message":"Login page"}
+template=Jinja2Templates("templates")
+router.mount("/templates",StaticFiles(directory="static"),name="static")
+
+@router.get("/",response_class=HTMLResponse)
+async def root(request:Request):
+    response={'request':request}
+    return template.TemplateResponse("iniciarsesion.html",response)
 
 @router.post("/login")
 async def login_for_access_token(form:OAuth2PasswordRequestForm=Depends()):
@@ -82,6 +92,7 @@ async def login_for_access_token(form:OAuth2PasswordRequestForm=Depends()):
     }
     access_token=create_access_token(data,access_token_expires)
     return {'access_token':access_token,'token_type':'bearer'}
+    #return template, a=10
 
 
 #a la ruta se le debe enviar el token
@@ -99,3 +110,10 @@ async def futuro(token=Depends(oauth2_scheme)):
     except JWTError:
         raise credentials_exception
     return {'message':'Acceso concedido'}
+
+
+#JWT -info-codificacion-firma
+
+# credenciales de usuario: Autentificar y autorizar
+
+#token
