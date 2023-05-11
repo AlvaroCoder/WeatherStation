@@ -25,9 +25,14 @@ async def root(request:Request):
 
 @app.get("/graficas")
 async def root(request:Request):
-    conn = Connection()
-    
     return template.TemplateResponse("graficas.html", {"request": request})
+
+@app.get("/api_data")
+async def root():
+    conn = Connection()
+    data = conn.dataSensors
+    data['times'] = conn.timeStation
+    return {"data":data}
 
 """ @app.get("/login")
 async def login(request: Request):

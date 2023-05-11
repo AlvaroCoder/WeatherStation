@@ -84,10 +84,11 @@ class Connection():
     def splitBySensorName(self, sensorName):
         return list(filter(lambda x : x['sensor_measurement_type'] == sensorName,self.__data['observation_list']))
     
-    def splitTimeValue_Si(self, data):
-        time = [e['timestamp'] for e in data]
+    def splitTimeValues(self, data):
+        time = [e['timestamp'].split(" ")[1][:5] for e in data]
         values_si = [e['si_value'] for e in data]
-        return (time, values_si)
+        values_us = [e['us_value'] for e in data]
+        return (time, values_si, values_us)
 
     # TODO: No toda la data de los sensores tiene la misma longitud
     @property
@@ -97,14 +98,13 @@ class Connection():
         obj = {}
         for e in sensors:
             stn = self.splitBySensorName(e)
-            time, values_si = self.splitTimeValue_Si(stn)
-            obj[e] = values_si
-                
+            time, values_si, values_us = self.splitTimeValues(stn)
+            obj[e] = {"si":values_si, "us":values_us}
         return obj
     
     @property
     def timeStation(self):
         sensors = self.sensorsNames
         stn = self.splitBySensorName(sensors[0])
-        time, values_si = self.splitTimeValue_Si(stn)
+        time, values_si, values_us = self.splitTimeValues(stn)
         return time
