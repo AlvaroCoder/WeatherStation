@@ -71,15 +71,7 @@ class Connection():
         self.parse_data = TOKEN['access_token']
         self.__data = requests.get(url=self.parse_data['url'],headers=self.parse_data['headers']).json()
 
-    # Name of each sensor measurement type
-    @property
-    def sensorsNames(self) -> list:
-        observation_list = self.__data['observation_list']
-        self.memory = []
-        for e in observation_list:
-            if e['sensor_measurement_type'] not in self.memory:
-                self.memory.append(e['sensor_measurement_type'])
-        return self.memory
+
 
     def splitBySensorName(self, sensorName):
         return list(filter(lambda x : x['sensor_measurement_type'] == sensorName,self.__data['observation_list']))
@@ -89,8 +81,18 @@ class Connection():
         values_si = [e['si_value'] for e in data]
         values_us = [e['us_value'] for e in data]
         return (time, values_si, values_us)
-
+    
+    # Name of each sensor measurement type
+    @property
+    def sensorsNames(self) -> list:
+        observation_list = self.__data['observation_list']
+        self.memory = []
+        for e in observation_list:
+            if e['sensor_measurement_type'] not in self.memory:
+                self.memory.append(e['sensor_measurement_type'])
+        return self.memory
     # TODO: No toda la data de los sensores tiene la misma longitud
+
     @property
     def dataSensors(self) -> object:
         sensors = self.sensorsNames

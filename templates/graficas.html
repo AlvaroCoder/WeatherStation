@@ -6,7 +6,7 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="{{ url_for('static', path='/css/graficas.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', path='/css/graficas.v1.css') }}">
     </head>
     <body>
         <header  class="header" id="myHeader">
@@ -26,6 +26,7 @@
 
         <div class="menu">
             <ul>
+                <li><a href="#windD">Dirección del viento</a></li>
                 <li><a href="#temp">Temperatura</a></li>
                 <li><a href="#hum">Humedad</a></li>
                 <li><a href="#lluvia">Lluvia</a></li>
@@ -35,13 +36,18 @@
         </div>
 
         <div class="tablas">
-            <div id="temp">
+            <div id="windD">
                 <h3>Wind Direction</h3>
-                
                 <figure class="highcharts-figure">
                     <div id="container">
                     </div>
                 </figure>
+            </div>
+            <div id="temp">
+              <h3>Temperature</h3>
+              <figure class="highcharts-figure">
+                <div id="container-temp"></div>
+              </figure>
             </div>
             <div id="hum">
                 <h3>Wind Speed</h3>
@@ -56,12 +62,7 @@
                   <div id="container-gustSpeed"></div>
                 </figure>
             </div>
-            <div id="uv">
-                <h3>Temperature</h3>
-                <figure class="highcharts-figure">
-                  <div id="container-temp"></div>
-                </figure>
-              </div>
+
             <div id="viento">
                 <h3>RH</h3>
                 <figure class="highcharts-figure">
@@ -112,7 +113,7 @@
                 let dataWindDirection_si = dataApi.data['Wind Direction']['si']
                 let dataWindDirection_us = dataApi.data['Wind Direction']['us']
                 let dataWindSpeed_si = dataApi.data['Wind Speed']['si']
-                let dataWindSpeed_us = dataApi.data['Wind Speed']['us']
+                let dataWindSpeed_us = dataApi.data['Wind Speed']['us'];
 
                 let dataGustSpeed_si = dataApi.data['Gust Speed']['si']
                 let dataGustSpeed_us = dataApi.data['Gust Speed']['us']
