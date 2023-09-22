@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="{{ url_for('static', path='/css/index.v1.css') }}" rel="stylesheet" >
-    <script src="index.js"></script>
+    <script src="{{url_for('static', path='/js/index.js')}}"></script>
   </head>
   <body>
     <header class="header" id="myHeader">
@@ -17,8 +17,8 @@
 
     <div id="img_principal">
       <img src="{{ url_for('static', path='img/Edificio E.jpg') }}" alt="edificio E">
-      <h1>Weather Station</h1>
     </div>
+
 
     <div class="rectangulo">
       <p><a href="graficas">GRÁFICAS</a></p>
@@ -28,23 +28,274 @@
 
     <div class="clima_diario">
       <div class="columna">
-        <p>El tiempo ahora en Piura, Perú</p>
-        <!--<p>Hay que jalar datos</p>-->
-        <h4>Sensación</h4>
+        <h4><a href="#temp">Temperatura</a></h4>
       </div>
       <div class="columna">
-        <h4>Lluvia</h4>
-        <h4>Dirección del viento</h4>
-        <h4>Velocidad del viento</h4>
-        <h4>Velocidad de ráfaga</h4>                
+        <h4><a href="#viento">Velocidad del viento</a></h4>
       </div>
       <div class="columna">
-        <h4>Humedad</h4>
-        <h4>Punto de rocío</h4>
-        <h4>Radiación</h4>
-        <h4>Batería</h4>
+        <h4><a href="#windD">Dirección del viento</a></h4>
+      </div>
+      <div class="columna">
+        <h4><a href="#hum">Humedad</a></h4>
+      </div>
+      <div class="columna">
+        <h4><a href="#rocio">Punto de rocío</a></h4>
+      </div>
+      <div class="columna">
+        <h4><a href="#radiacion">Radiacion</a></h4>
       </div>
     </div>
+
+    <div class="ctn_graphs">
+      <div id="windD" class="card-graph">
+        <figure class="highcharts-figure">
+          <div id="container">
+          </div>
+      </figure>
+      </div>
+      <div id="temp" class="card-graph">
+        <figure class="highcharts-figure">
+          <div id="container-temp"></div>
+        </figure>
+      </div>
+      <div id="hum">
+        <figure class="highcharts-figure">
+          <div id="container-windSpeed">
+          </div>
+        </figure>
+      </div>
+      <div id="lluvia" class="card-graph">
+        <figure class="highcharts-figure">
+          <div id="container-gustSpeed"></div>
+        </figure>
+      </div>
+
+      <div id="viento" class="card-graph">
+        <figure class="highcharts-figure">
+          <div id="container-rh"></div>
+        </figure>
+        </div>   
+        <div id="rocio" class="card-graph">
+          <figure class="highcharts-figure">
+            <div id="container-dew"></div>
+          </figure> 
+        </div>   
+        <div id="radiacion" class="card-graph">
+          <figure class="highcharts-figure">
+            <div id="container-solarRad"></div>
+          </figure>
+        </div>
+    </div>
+
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/series-label.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+  <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+  <script>
+      window.onscroll = function() {myFunction()};
+      
+      var header = document.getElementById("myHeader");
+      var sticky = header.offsetTop;
+      
+      function myFunction() {
+        if (window.pageYOffset > sticky) {
+          header.classList.add("sticky");
+        } else {
+          header.classList.remove("sticky");
+        }
+      }
+
+      const reqDataApi =async ()=>{
+        const res = await fetch('http://127.0.0.1:8000/api_data',{
+          method :'GET'
+        })
+        const dataApi = await res.json()
+        
+        if (dataApi) {
+          let times = dataApi.data['times']
+          let dataWindDirection_si = dataApi.data['Wind Direction']['si']
+          let dataWindDirection_us = dataApi.data['Wind Direction']['us']
+          let dataWindSpeed_si = dataApi.data['Wind Speed']['si']
+          let dataWindSpeed_us = dataApi.data['Wind Speed']['us'];
+
+          let dataGustSpeed_si = dataApi.data['Gust Speed']['si']
+          let dataGustSpeed_us = dataApi.data['Gust Speed']['us']
+
+          let dataTemperature_si = dataApi.data['Temperature']['si']
+          let dataTemperature_us = dataApi.data['Temperature']['us']
+
+          let dataRH_si = dataApi.data['RH']['si']
+          let dataRH_us = dataApi.data['RH']['us']
+
+          let dataDewPoint_si = dataApi.data['Dew Point']['si']
+          let dataDewPoint_us = dataApi.data['Dew Point']['us']
+
+          let dataSolarRad = dataApi.data['Solar Radiation']['si']
+          Highcharts.chart('container', {
+            chart : {
+              type : 'line'
+            },
+            title: {
+              text : 'Wind Direction'
+            },
+            subtitle: {
+                text: 'Source: Weather Station Udep'
+            },
+            yAxis : {
+              title : null
+            },
+            xAxis : {
+              categories : times
+            },
+            series : [{
+              name: 'SI (°)',
+              marker: {
+              symbol: 'square'},        
+              data : dataWindDirection_si
+            },{
+              name : 'US (°)',
+              data : dataWindDirection_us
+            }]
+          });
+
+          Highcharts.chart('container-windSpeed', {
+            chart : {
+              type : 'line'
+            },
+            title: {
+              text : 'Wind Speed'
+            },
+            subtitle: {
+                text: 'Source: Weather Station Udep'
+            },
+            yAxis : {
+              title : null
+            },
+            xAxis : {
+              categories : times
+            },
+            series : [{
+              name : 'm/s',
+              marker : {
+                symbol : 'square'
+              },
+              data : dataWindSpeed_si
+            },{name : 'mph', data : dataWindSpeed_us}]
+          });
+          Highcharts.chart('container-gustSpeed', {
+            chart : {
+              type : 'line'
+            },
+            title: {
+              text : 'Gust Speed'
+            },
+            subtitle: {
+                text: 'Source: Weather Station Udep'
+            },
+            yAxis : {
+              title : null
+            },
+            xAxis : {
+              categories : times
+            },
+            series : [{
+              name : 'm/s',
+              data : dataGustSpeed_si
+            },{name:'mph',data:dataGustSpeed_us}]
+          });
+          Highcharts.chart('container-temp', {
+            chart : {
+              type : 'line'
+            },
+            title: {
+              text : 'Temperature'
+            },
+            subtitle: {
+                text: 'Source: Weather Station Udep'
+            },
+            yAxis : {
+              title : null
+            },
+            xAxis : {
+              categories : times
+            },
+            series : [{
+              name : '°C',
+              data : dataTemperature_si
+            },{name:'°F', data: dataTemperature_us}]
+          });
+          Highcharts.chart('container-rh', {
+            chart : {
+              type : 'line'
+            },
+            title: {
+              text : 'RH'
+            },
+            subtitle: {
+                text: 'Source: Weather Station Udep'
+            },
+            yAxis : {
+              title : null
+            },
+            xAxis : {
+              categories : times
+            },
+            series : [{
+              name : 'SI (%)',
+              data : dataRH_si
+            },{name : 'US (%)', data : dataRH_us}]
+          });
+          Highcharts.chart('container-dew', {
+            chart : {
+              type : 'line'
+            },
+            title: {
+              text : 'Dew Point'
+            },
+            subtitle: {
+                text: 'Source: Weather Station Udep'
+            },
+            yAxis : {
+              title : null
+            },
+            xAxis : {
+              categories : times
+            },
+            series : [{
+              name : '°C',
+              data : dataDewPoint_si
+            },{name : '°F', data : dataDewPoint_us}]
+          });
+          Highcharts.chart('container-solarRad', {
+            chart : {
+              type : 'line'
+            },
+            title: {
+              text : 'Solar Radiation'
+            },
+            subtitle: {
+                text: 'Source: Weather Station Udep'
+            },
+            yAxis : {
+              title : null
+            },
+            xAxis : {
+              categories : times
+            },
+            series : [{
+              name : 'W/m2',
+              data : dataSolarRad
+            }]
+          });
+        }
+
+        
+      }
+      reqDataApi()
+    
+  </script>
     <div class="contenedor-mapa" style="width:100%; padding: 2rem; display: flex; justify-content: center;">
       <div style="width: 70%; border: 1px white solid; box-shadow: 4px 6px 5px 0px rgba(0,0,0,0.48);
       -webkit-box-shadow: 4px 6px 5px 0px rgba(0,0,0,0.48);

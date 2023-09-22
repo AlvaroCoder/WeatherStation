@@ -5,9 +5,7 @@ from fastapi.responses import HTMLResponse
 from services.connectionHobolink import Connection
 from routers import login
 
-app=FastAPI(
-    title="WeatherStation"
-)
+app=FastAPI(title="WeatherStation")
 
 #routers
 app.include_router(login.router)
